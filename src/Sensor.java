@@ -30,7 +30,7 @@ public class Sensor implements Runnable{
 		{
 			this.generateValue();
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(700);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
