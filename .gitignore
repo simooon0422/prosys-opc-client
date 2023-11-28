@@ -1,0 +1,9 @@
+.classpath
+.project
+.settings/
+*.log
+*.xml
+bin/
+javadoc/
+lib/
+src/com
