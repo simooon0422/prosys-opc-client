@@ -1,14 +1,19 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class ControlPanel extends JFrame{
+public class ControlPanel extends JFrame implements ActionListener{
 	Sensor[] sensors;
 	JLabel[] nameLabels;
 	JLabel[] valueLabels;
+	JButton[] buttons;
+	
 	int sensorsNumber;
 	
 	ControlPanel(Sensor[] sensorList)
@@ -18,15 +23,16 @@ public class ControlPanel extends JFrame{
 
 		this.initializeNameLabels();
 		this.initializeValueLabels();
+		this.initializeButtons();
 		this.initializeFrame();
-		this.addLabels();
+		this.addComponents();
 	}
 	
 	private void initializeFrame()
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
-		this.setSize(200*this.sensorsNumber, 450);
+		this.setSize(200*this.sensorsNumber, 300);
 		this.setVisible(true);
 	}
 	
@@ -62,12 +68,31 @@ public class ControlPanel extends JFrame{
 		}
 	}
 	
-	private void addLabels()
+	private void initializeButtons()
+	{
+		this.buttons = new JButton[this.sensorsNumber];
+		
+		for(int i = 0; i < this.sensorsNumber; i++)
+		{
+			this.buttons[i] = new JButton();
+			this.buttons[i].setBounds(50+(150*i), 150, 120, 30);
+			this.buttons[i].addActionListener(this);
+			this.buttons[i].setText("I'm a button!");
+			this.buttons[i].setHorizontalAlignment(JLabel.CENTER);
+			this.buttons[i].setFont(new Font("Comic Sans",Font.BOLD,16));
+			this.buttons[i].setForeground(Color.red);
+			this.buttons[i].setBackground(Color.lightGray);
+			this.buttons[i].setBorder(BorderFactory.createEtchedBorder());
+		}
+	}
+	
+	private void addComponents()
 	{
 		for (int i = 0; i < this.sensorsNumber; i++)
 		{
 			this.add(this.nameLabels[i]);
 			this.add(this.valueLabels[i]);
+			this.add(this.buttons[i]);
 		}
 	}
 	
@@ -77,5 +102,11 @@ public class ControlPanel extends JFrame{
 		{
 			this.valueLabels[i].setText(Float.toString(this.sensors[i].getValue())); //set text of label	
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

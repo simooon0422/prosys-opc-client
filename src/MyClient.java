@@ -17,11 +17,13 @@ public class MyClient {
 			
 		String address = "opc.tcp://LAPTOP-7499MVRF:53530/OPCUA/SimulationServer";
 		UaClient client = new UaClient();
-		NodeId myNode = new NodeId(3, 1001);
+		NodeId myNode_1 = new NodeId(3, 1008);
+		NodeId myNode_2 = new NodeId(3, 1009);
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
 		
 		float temperature;
+		float temperature2;
 		
 		try {
 			client.connect();
@@ -33,12 +35,16 @@ public class MyClient {
 		for(int i = 0; i < 10; i++)
 		{
 			t_sens.generateValue();
+			t_sens2.generateValue();
 			temperature = t_sens.getValue();
+			temperature2 = t_sens2.getValue();
 			panel.updateValues();
 			System.out.println(temperature);
+			System.out.println(temperature2);
 			
 			try {
-				client.writeAttribute(myNode, UnsignedInteger.valueOf(13), temperature, true);
+				client.writeAttribute(myNode_1, UnsignedInteger.valueOf(13), temperature, true);
+				client.writeAttribute(myNode_2, UnsignedInteger.valueOf(13), temperature2, true);
 			} catch (DataTypeConversionException | ServiceException | StatusException e) {
 				e.printStackTrace();
 			}
