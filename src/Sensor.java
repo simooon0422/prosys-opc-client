@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Sensor implements Runnable{
+public class Sensor{
 	private float value;
 	private float lowerBound;
 	private float upperBound;
@@ -20,22 +20,8 @@ public class Sensor implements Runnable{
 	
 	public float getValue() 
 	{
+		this.generateValue();
 		return this.value;
-	}
-
-	@Override
-	public void run() 
-	{
-		while(true)
-		{
-			this.generateValue();
-			try {
-				Thread.sleep(700);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		
 	}
 
 }
