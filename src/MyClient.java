@@ -9,6 +9,7 @@ import com.prosysopc.ua.stack.transport.security.SecurityMode;
 public class MyClient {
 
 	public static void main(String[] args) throws InterruptedException{
+		ControlPanel panel = new ControlPanel();
 		Sensor t_sens = new Sensor(28, 32);
 		
 		String address = "opc.tcp://LAPTOP-7499MVRF:53530/OPCUA/SimulationServer";
