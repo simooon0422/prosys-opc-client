@@ -9,9 +9,11 @@ import com.prosysopc.ua.stack.transport.security.SecurityMode;
 public class MyClient {
 
 	public static void main(String[] args) throws InterruptedException{
-		ControlPanel panel = new ControlPanel();
-		Sensor t_sens = new Sensor(28, 32);
+		Sensor t_sens = new Sensor("Temperature", 28, 32);
+		Sensor[] sensors = {t_sens};
 		
+		ControlPanel panel = new ControlPanel(sensors);
+			
 		String address = "opc.tcp://LAPTOP-7499MVRF:53530/OPCUA/SimulationServer";
 		UaClient client = new UaClient();
 		NodeId myNode = new NodeId(3, 1001);

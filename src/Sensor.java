@@ -4,13 +4,15 @@ public class Sensor{
 	private float value;
 	private float lowerBound;
 	private float upperBound;
+	private String name;
 	
 	Random rand = new Random();
 	
-	Sensor(float lowerBound, float upperBound)
+	Sensor(String name, float lowerBound, float upperBound)
 	{
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
+		this.name = name;
 	};
 	
 	private void generateValue()
@@ -22,6 +24,11 @@ public class Sensor{
 	{
 		this.generateValue();
 		return this.value;
+	}
+	
+	public String getName()
+	{
+		return this.name;
 	}
 
 }

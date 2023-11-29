@@ -6,25 +6,44 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class ControlPanel extends JFrame{
-	ControlPanel()
+	Sensor[] sensors;
+	JLabel[] labels;
+	int sensorsNumber;
+	
+	ControlPanel(Sensor[] sensorList)
 	{	
-		JLabel label = new JLabel(); //create a label
-		initializeLabels(label);
+		this.sensors = sensorList;
+		this.sensorsNumber = sensors.length;
+
+		this.initializeLabels();
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		this.setSize(450, 450);
 		this.setVisible(true);
-		this.add(label);
+		this.addLabels();
 	}
 	
-	void initializeLabels(JLabel label)
+	void initializeLabels()
 	{
-		label.setText("Temperature"); //set text of label
-		label.setForeground(Color.black); //set font color of text
-		label.setFont(new Font("MV Boli",Font.PLAIN,16)); //set font of text
-		label.setBackground(Color.cyan); //set background color
-		label.setOpaque(true); //display background color
-		label.setBounds(50, 50, 100, 30); //set x,y position within frame as well as dimensions
+		this.labels = new JLabel[sensorsNumber];
+		for (int i = 0; i < this.sensorsNumber; i++)
+		{
+			this.labels[i] = new JLabel();
+			this.labels[i].setText(this.sensors[i].getName()); //set text of label
+			this.labels[i].setForeground(Color.black); //set font color of text
+			this.labels[i].setFont(new Font("MV Boli",Font.PLAIN,16)); //set font of text
+			this.labels[i].setBackground(Color.cyan); //set background color
+			this.labels[i].setOpaque(true); //display background color
+			this.labels[i].setBounds(50, 50, 100, 30); //set x,y position within frame as well as dimensions
+		}
+	}
+	
+	void addLabels()
+	{
+		for (int i = 0; i < this.sensorsNumber; i++)
+		{
+			this.add(this.labels[i]);
+		}
 	}
 }
