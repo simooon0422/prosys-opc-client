@@ -10,7 +10,8 @@ public class MyClient {
 
 	public static void main(String[] args) throws InterruptedException{
 		Sensor t_sens = new Sensor("Temperature", 28, 32);
-		Sensor[] sensors = {t_sens};
+		Sensor t_sens2 = new Sensor("Temperature2", 28, 32);
+		Sensor[] sensors = {t_sens, t_sens2};
 		
 		ControlPanel panel = new ControlPanel(sensors);
 			
@@ -31,7 +32,9 @@ public class MyClient {
 		
 		for(int i = 0; i < 10; i++)
 		{
+			t_sens.generateValue();
 			temperature = t_sens.getValue();
+			panel.updateValues();
 			System.out.println(temperature);
 			
 			try {

@@ -15,14 +15,13 @@ public class Sensor{
 		this.name = name;
 	};
 	
-	private void generateValue()
+	public void generateValue()
 	{
 		this.value = rand.nextFloat(this.lowerBound, this.upperBound);
 	}
 	
 	public float getValue() 
 	{
-		this.generateValue();
 		return this.value;
 	}
 	
