@@ -5,6 +5,7 @@ public class Sensor{
 	private float lowerBound;
 	private float upperBound;
 	private String name;
+	private boolean malfunction = false;
 	
 	Random rand = new Random();
 	
@@ -17,7 +18,17 @@ public class Sensor{
 	
 	public void generateValue()
 	{
-		this.value = rand.nextFloat(this.lowerBound, this.upperBound);
+		if (this.malfunction == false)
+		{
+			this.value = rand.nextFloat(this.lowerBound, this.upperBound);
+		} 
+		else this.value = rand.nextFloat(this.lowerBound-50, this.upperBound+50);
+		
+	}
+	
+	public void setMalfunction()
+	{
+		this.malfunction = !this.malfunction;
 	}
 	
 	public float getValue() 
