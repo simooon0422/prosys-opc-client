@@ -80,8 +80,8 @@ public class ControlPanel extends JFrame implements ActionListener{
 			this.buttons[i].setText("I'm a button!");
 			this.buttons[i].setHorizontalAlignment(JLabel.CENTER);
 			this.buttons[i].setFont(new Font("Comic Sans",Font.BOLD,16));
-			this.buttons[i].setForeground(Color.red);
-			this.buttons[i].setBackground(Color.lightGray);
+			this.buttons[i].setForeground(Color.BLACK);
+			this.buttons[i].setBackground(Color.LIGHT_GRAY);
 			this.buttons[i].setBorder(BorderFactory.createEtchedBorder());
 		}
 	}
@@ -106,7 +106,16 @@ public class ControlPanel extends JFrame implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		for (int i = 0; i < this.buttons.length; i++)
+		{
+			if (e.getSource() == this.buttons[i]) 
+			{
+				this.sensors[i].setMalfunction();
+				if (this.sensors[i].getMalfunction())
+				{
+					this.buttons[i].setBackground(Color.RED);
+				} else this.buttons[i].setBackground(Color.LIGHT_GRAY);
+			}
+		}
 	}
 }

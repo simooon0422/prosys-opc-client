@@ -31,6 +31,11 @@ public class Sensor{
 		this.malfunction = !this.malfunction;
 	}
 	
+	public boolean getMalfunction()
+	{
+		return this.malfunction;
+	}
+	
 	public float getValue() 
 	{
 		return this.value;
