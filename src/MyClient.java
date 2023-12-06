@@ -1,27 +1,26 @@
 import com.prosysopc.ua.ServiceException;
-import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import com.prosysopc.ua.stack.builtintypes.NodeId;
-import com.prosysopc.ua.stack.builtintypes.UnsignedInteger;
 import com.prosysopc.ua.stack.transport.security.SecurityMode;
 
 public class MyClient {
-
-	public static void main(String[] args) throws InterruptedException{
-
-			
+	public static void main(String[] args) throws InterruptedException{		
+		
 		String address = "opc.tcp://LAPTOP-7499MVRF:53530/OPCUA/SimulationServer";
 		UaClient client = new UaClient();
 		NodeId myNode_1 = new NodeId(3, 1008);
 		NodeId myNode_2 = new NodeId(3, 1009);
+		NodeId myNode_3 = new NodeId(3, 1010);
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
 		
-		Sensor t_sens = new Sensor(client, myNode_1, "Temperature", 28, 32, 1);
+		Sensor t_sens = new Sensor(client, myNode_1, "Temperatura", 145, 155, 1);
 		t_sens.setDaemon(true);
-		Sensor t_sens2 = new Sensor(client, myNode_2, "Temperature2", 28, 32, 5);
-		t_sens2.setDaemon(true);
-		Sensor[] sensors = {t_sens, t_sens2};
+		Sensor m_sens = new Sensor(client, myNode_2, "Masa", 30, 35, 5);
+		m_sens.setDaemon(true);
+		Sensor p_sens = new Sensor(client, myNode_3, "Cisnienie", 1000, 1050, 1);
+		p_sens.setDaemon(true);
+		Sensor[] sensors = {t_sens, m_sens, p_sens};
 		
 		ControlPanel panel = new ControlPanel(sensors);
 		
@@ -33,19 +32,13 @@ public class MyClient {
 		}
 		
 		t_sens.start();
-		t_sens2.start();
-		long t0 = System.currentTimeMillis();
-		long t1 = System.currentTimeMillis();
+		m_sens.start();
+		p_sens.start();
 		
-		while(t1-t0<10000)
+		while(true)
 		{
 			panel.updateValues();
 		}
-		
-		
-		client.disconnect();
-		System.out.println("Disconnected");
-
 	}
 	
 }

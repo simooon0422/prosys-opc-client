@@ -61,7 +61,7 @@ public class ControlPanel extends JFrame implements ActionListener{
 			this.valueLabels[i].setText(Float.toString(this.sensors[i].getValue())); //set text of label
 			this.valueLabels[i].setHorizontalAlignment(JLabel.CENTER);
 			this.valueLabels[i].setForeground(Color.black); //set font color of text
-			this.valueLabels[i].setFont(new Font("MV Boli",Font.PLAIN,16)); //set font of text
+			this.valueLabels[i].setFont(new Font("Arial",Font.PLAIN,16)); //set font of text
 			this.valueLabels[i].setBackground(Color.gray); //set background color
 			this.valueLabels[i].setOpaque(true); //display background color
 			this.valueLabels[i].setBounds(50+(150*i), 100, 120, 30); //set x,y position within frame as well as dimensions
@@ -77,7 +77,7 @@ public class ControlPanel extends JFrame implements ActionListener{
 			this.buttons[i] = new JButton();
 			this.buttons[i].setBounds(50+(150*i), 150, 120, 30);
 			this.buttons[i].addActionListener(this);
-			this.buttons[i].setText("I'm a button!");
+			this.buttons[i].setText("Awaria");
 			this.buttons[i].setHorizontalAlignment(JLabel.CENTER);
 			this.buttons[i].setFont(new Font("Comic Sans",Font.BOLD,16));
 			this.buttons[i].setForeground(Color.BLACK);

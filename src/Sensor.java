@@ -29,7 +29,7 @@ public class Sensor extends Thread{
 		this.frequency = frequency;
 	};
 	
-	public void generateValue()
+	private void generateValue()
 	{
 		if (this.malfunction == false)
 		{
@@ -37,6 +37,15 @@ public class Sensor extends Thread{
 		} 
 		else this.value = rand.nextFloat(this.lowerBound-50, this.upperBound+50);
 		
+	}
+	
+	private void sendValue()
+	{
+		try {
+			client.writeAttribute(this.sensorNode, UnsignedInteger.valueOf(13), this.value, true);
+		} catch (DataTypeConversionException | ServiceException | StatusException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setMalfunction()
@@ -64,12 +73,7 @@ public class Sensor extends Thread{
 		while(true)
 		{
 			this.generateValue();
-			try {
-				client.writeAttribute(this.sensorNode, UnsignedInteger.valueOf(13), this.value, true);
-			} catch (DataTypeConversionException | ServiceException | StatusException e) {
-				e.printStackTrace();
-			}
-			
+			this.sendValue();
 			try {
 				Thread.sleep(1000/this.frequency);
 			} catch (InterruptedException e) {
