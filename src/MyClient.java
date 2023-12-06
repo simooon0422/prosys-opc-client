@@ -1,4 +1,3 @@
-import com.prosysopc.ua.DataTypeConversionException;
 import com.prosysopc.ua.ServiceException;
 import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
@@ -9,11 +8,7 @@ import com.prosysopc.ua.stack.transport.security.SecurityMode;
 public class MyClient {
 
 	public static void main(String[] args) throws InterruptedException{
-		Sensor t_sens = new Sensor("Temperature", 28, 32);
-		Sensor t_sens2 = new Sensor("Temperature2", 28, 32);
-		Sensor[] sensors = {t_sens, t_sens2};
-		
-		ControlPanel panel = new ControlPanel(sensors);
+
 			
 		String address = "opc.tcp://LAPTOP-7499MVRF:53530/OPCUA/SimulationServer";
 		UaClient client = new UaClient();
@@ -22,8 +17,13 @@ public class MyClient {
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
 		
-		float temperature;
-		float temperature2;
+		Sensor t_sens = new Sensor(client, myNode_1, "Temperature", 28, 32, 1);
+		t_sens.setDaemon(true);
+		Sensor t_sens2 = new Sensor(client, myNode_2, "Temperature2", 28, 32, 5);
+		t_sens2.setDaemon(true);
+		Sensor[] sensors = {t_sens, t_sens2};
+		
+		ControlPanel panel = new ControlPanel(sensors);
 		
 		try {
 			client.connect();
@@ -32,25 +32,16 @@ public class MyClient {
 			e.printStackTrace();
 		}
 		
-		for(int i = 0; i < 10; i++)
-		{
-			t_sens.generateValue();
-			t_sens2.generateValue();
-			temperature = t_sens.getValue();
-			temperature2 = t_sens2.getValue();
-			panel.updateValues();
-			System.out.println(temperature);
-			System.out.println(temperature2);
-			
-			try {
-				client.writeAttribute(myNode_1, UnsignedInteger.valueOf(13), temperature, true);
-				client.writeAttribute(myNode_2, UnsignedInteger.valueOf(13), temperature2, true);
-			} catch (DataTypeConversionException | ServiceException | StatusException e) {
-				e.printStackTrace();
-			}
-			Thread.sleep(1000);
+		t_sens.start();
+		t_sens2.start();
+		long t0 = System.currentTimeMillis();
+		long t1 = System.currentTimeMillis();
 		
+		while(t1-t0<10000)
+		{
+			panel.updateValues();
 		}
+		
 		
 		client.disconnect();
 		System.out.println("Disconnected");

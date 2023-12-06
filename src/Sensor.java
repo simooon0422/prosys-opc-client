@@ -1,19 +1,32 @@
 import java.util.Random;
 
-public class Sensor{
+import com.prosysopc.ua.DataTypeConversionException;
+import com.prosysopc.ua.ServiceException;
+import com.prosysopc.ua.StatusException;
+import com.prosysopc.ua.client.UaClient;
+import com.prosysopc.ua.stack.builtintypes.NodeId;
+import com.prosysopc.ua.stack.builtintypes.UnsignedInteger;
+
+public class Sensor extends Thread{
 	private float value;
 	private float lowerBound;
 	private float upperBound;
 	private String name;
 	private boolean malfunction = false;
+	private int frequency;
+	private UaClient client;
+	private NodeId sensorNode;
 	
 	Random rand = new Random();
 	
-	Sensor(String name, float lowerBound, float upperBound)
+	Sensor(UaClient client, NodeId node, String name, float lowerBound, float upperBound, int frequency)
 	{
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
 		this.name = name;
+		this.client = client;
+		this.sensorNode = node;
+		this.frequency = frequency;
 	};
 	
 	public void generateValue()
@@ -41,9 +54,28 @@ public class Sensor{
 		return this.value;
 	}
 	
-	public String getName()
+	public String getSensorName()
 	{
 		return this.name;
+	}
+
+	public void run() 
+	{
+		while(true)
+		{
+			this.generateValue();
+			try {
+				client.writeAttribute(this.sensorNode, UnsignedInteger.valueOf(13), this.value, true);
+			} catch (DataTypeConversionException | ServiceException | StatusException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				Thread.sleep(1000/this.frequency);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

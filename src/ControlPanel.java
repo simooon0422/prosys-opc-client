@@ -42,7 +42,7 @@ public class ControlPanel extends JFrame implements ActionListener{
 		for (int i = 0; i < this.sensorsNumber; i++)
 		{
 			this.nameLabels[i] = new JLabel();
-			this.nameLabels[i].setText(this.sensors[i].getName()); //set text of label
+			this.nameLabels[i].setText(this.sensors[i].getSensorName()); //set text of label
 			this.nameLabels[i].setHorizontalAlignment(JLabel.CENTER);
 			this.nameLabels[i].setForeground(Color.black); //set font color of text
 			this.nameLabels[i].setFont(new Font("MV Boli",Font.PLAIN,16)); //set font of text
