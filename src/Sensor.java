@@ -8,14 +8,14 @@ import com.prosysopc.ua.stack.builtintypes.NodeId;
 import com.prosysopc.ua.stack.builtintypes.UnsignedInteger;
 
 public class Sensor extends Thread{
-	private float value;
-	private float lowerBound;
-	private float upperBound;
-	private String name;
-	private boolean malfunction = false;
-	private int frequency;
-	private UaClient client;
-	private NodeId sensorNode;
+	protected float value;
+	protected float lowerBound;
+	protected float upperBound;
+	protected String name;
+	protected boolean malfunction = false;
+	protected int frequency;
+	protected UaClient client;
+	protected NodeId sensorNode;
 	
 	Random rand = new Random();
 	
@@ -29,7 +29,7 @@ public class Sensor extends Thread{
 		this.frequency = frequency;
 	};
 	
-	private void generateValue()
+	protected void generateValue()
 	{
 		if (this.malfunction == false)
 		{
@@ -39,7 +39,7 @@ public class Sensor extends Thread{
 		
 	}
 	
-	private void sendValue()
+	protected void sendValue()
 	{
 		try {
 			client.writeAttribute(this.sensorNode, UnsignedInteger.valueOf(13), this.value, true);
