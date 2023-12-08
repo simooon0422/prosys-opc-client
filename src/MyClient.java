@@ -14,11 +14,11 @@ public class MyClient {
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
 		
-		Sensor t_sens = new Sensor(client, myNode_1, "Temperatura", 145, 155, 1);
+		Sensor t_sens = new SensorFloat(client, myNode_1, "Temperatura", 145, 155, 1);
 		t_sens.setDaemon(true);
-		Sensor m_sens = new Sensor(client, myNode_2, "Masa", 30, 35, 5);
+		Sensor m_sens = new SensorFloat(client, myNode_2, "Masa", 30, 35, 5);
 		m_sens.setDaemon(true);
-		Sensor p_sens = new Sensor(client, myNode_3, "Cisnienie", 1000, 1050, 1);
+		Sensor p_sens = new SensorFloat(client, myNode_3, "Cisnienie", 1000, 1050, 1);
 		p_sens.setDaemon(true);
 		Sensor[] sensors = {t_sens, m_sens, p_sens};
 		

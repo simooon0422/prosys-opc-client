@@ -1,16 +1,8 @@
 import java.util.Random;
-
-import com.prosysopc.ua.DataTypeConversionException;
-import com.prosysopc.ua.ServiceException;
-import com.prosysopc.ua.StatusException;
 import com.prosysopc.ua.client.UaClient;
 import com.prosysopc.ua.stack.builtintypes.NodeId;
-import com.prosysopc.ua.stack.builtintypes.UnsignedInteger;
 
 public class Sensor extends Thread{
-	protected float value;
-	protected float lowerBound;
-	protected float upperBound;
 	protected String name;
 	protected boolean malfunction = false;
 	protected int frequency;
@@ -19,34 +11,18 @@ public class Sensor extends Thread{
 	
 	Random rand = new Random();
 	
-	Sensor(UaClient client, NodeId node, String name, float lowerBound, float upperBound, int frequency)
+	Sensor(UaClient client, NodeId node, String name, int frequency)
 	{
-		this.lowerBound = lowerBound;
-		this.upperBound = upperBound;
+
 		this.name = name;
-		this.client = client;
+		this.client = client; 
 		this.sensorNode = node;
 		this.frequency = frequency;
 	};
 	
-	protected void generateValue()
-	{
-		if (this.malfunction == false)
-		{
-			this.value = rand.nextFloat(this.lowerBound, this.upperBound);
-		} 
-		else this.value = rand.nextFloat(this.lowerBound-50, this.upperBound+50);
-		
-	}
+	protected void generateValue() {}
 	
-	protected void sendValue()
-	{
-		try {
-			client.writeAttribute(this.sensorNode, UnsignedInteger.valueOf(13), this.value, true);
-		} catch (DataTypeConversionException | ServiceException | StatusException e) {
-			e.printStackTrace();
-		}
-	}
+	protected void sendValue() {}
 	
 	public void setMalfunction()
 	{
@@ -58,10 +34,7 @@ public class Sensor extends Thread{
 		return this.malfunction;
 	}
 	
-	public float getValue() 
-	{
-		return this.value;
-	}
+	public float getValue() {return 0;}
 	
 	public String getSensorName()
 	{
