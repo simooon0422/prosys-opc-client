@@ -1,4 +1,6 @@
 import com.prosysopc.ua.ServiceException;
+import com.prosysopc.ua.StatusException;
+import com.prosysopc.ua.client.ServerConnectionException;
 import com.prosysopc.ua.client.UaClient;
 import com.prosysopc.ua.stack.builtintypes.NodeId;
 import com.prosysopc.ua.stack.transport.security.SecurityMode;
@@ -25,37 +27,53 @@ public class MyClient {
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
 		
-		Sensor potatoMass = new SensorFloat(client, massNode, "Masa", 1, 20, 30, 0, 5);
+		Sensor potatoMass = new SensorFloat(client, massNode, "Masa ziemniaków", 1, 20, 30, 0, 5);
+		Sensor oilTemperature = new SensorFloat(client, oilTempNode, "Temperatura oleju", 2, 20, 30, 0, 5);
+		Sensor humidity = new SensorFloat(client, humidityNode, "Wilgotność", 1, 30, 40, 90, 100);
+		Sensor rollerSpeed = new SensorFloat(client, rollerNode, "Prędkość podajnika", 2, 2, 3, 0, (float)0.5);
+		Sensor oilPressure = new SensorFloat(client, oilPresNode, "Ciśnienie oleju", 5, 1000, 1050, 0, 100);
+		Sensor spiceMass = new SensorFloat(client, spiceNode, "Masa przypraw", 1, 5, 10, 20, 30);
+		Sensor vibration = new SensorFloat(client, vibrationNode, "Wibracje", 5, 0, 5, 10, 15);
 		
-		
-		Sensor oilTemperature = new SensorFloat(client, oilTempNode, "Temperatura oleju", 1, 20, 30, 0, 5);
-		Sensor humidity = new SensorFloat(client, humidityNode, "Wilgotność", 1, 20, 30, 0, 5);
-		
-		Sensor t_sens = new SensorFloat(client, rollerNode, "Temperatura", 1, 145, 155, 200, 250);
-		t_sens.setDaemon(true);
-		Sensor m_sens = new SensorFloat(client, oilPresNode, "Masa", 5, 30, 35, 0, 10);
-		m_sens.setDaemon(true);
-		Sensor p_sens = new SensorFloat(client, spiceNode, "Cisnienie", 2, 1000, 1050, 300, 350);
-		p_sens.setDaemon(true);
-		Sensor[] sensors = {t_sens, m_sens, p_sens};
+		Sensor[] sensors = {potatoMass,
+							oilTemperature,
+							humidity, 
+							rollerSpeed, 
+							oilPressure, 
+							spiceMass, 
+							vibration};
 		
 		ControlPanel panel = new ControlPanel(sensors);
 		
-		try {
-			client.connect();
-			System.out.println("Connected");
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
-		
-		t_sens.start();
-		m_sens.start();
-		p_sens.start();
+		connectToServer(client);
+		startSensors(sensors);
 		
 		while(true)
 		{
 			panel.updateValues();
+			
+			if(client.getEndpoint() == null)
+			{
+				connectToServer(client);
+			}
 		}
 	}
 	
+	static void startSensors(Sensor[] sens)
+	{
+		for(int i = 0; i < sens.length; i++)
+		{
+			sens[i].setDaemon(true);
+			sens[i].start();
+		}
+	}
+	
+	static void connectToServer(UaClient client)
+	{
+		try {
+			client.connect();
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+	}
 }

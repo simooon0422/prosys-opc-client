@@ -33,10 +33,13 @@ public class SensorFloat extends Sensor{
 	@Override
 	protected void sendValue()
 	{
-		try {
-			client.writeAttribute(this.sensorNode, UnsignedInteger.valueOf(13), this.value, true);
-		} catch (DataTypeConversionException | ServiceException | StatusException e) {
-			e.printStackTrace();
+		if(client.getEndpoint() != null)
+		{
+			try {
+				client.writeAttribute(this.sensorNode, UnsignedInteger.valueOf(13), this.value, true);
+			} catch (DataTypeConversionException | ServiceException | StatusException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
