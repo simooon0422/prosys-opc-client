@@ -27,13 +27,13 @@ public class MyClient {
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
 		
-		Sensor potatoMass = new SensorFloat(client, massNode, "Masa ziemniaków", 1, 20, 30, 0, 5);
-		Sensor oilTemperature = new SensorFloat(client, oilTempNode, "Temperatura oleju", 2, 20, 30, 0, 5);
-		Sensor humidity = new SensorFloat(client, humidityNode, "Wilgotność", 1, 30, 40, 90, 100);
-		Sensor rollerSpeed = new SensorFloat(client, rollerNode, "Prędkość podajnika", 2, 2, 3, 0, (float)0.5);
-		Sensor oilPressure = new SensorFloat(client, oilPresNode, "Ciśnienie oleju", 5, 1000, 1050, 0, 100);
-		Sensor spiceMass = new SensorFloat(client, spiceNode, "Masa przypraw", 1, 5, 10, 20, 30);
-		Sensor vibration = new SensorFloat(client, vibrationNode, "Wibracje", 5, 0, 5, 10, 15);
+		Sensor potatoMass = new SensorFloat(client, massNode, "Masa ziemniaków", 1, 20, 30, 0, 5, 5);
+		Sensor oilTemperature = new SensorFloat(client, oilTempNode, "Temperatura oleju", 1, 200, 210, 0, 5, 1);
+		Sensor humidity = new SensorFloat(client, humidityNode, "Wilgotność", 1, 30, 40, 90, 100, 1);
+		Sensor rollerSpeed = new SensorFloat(client, rollerNode, "Prędkość podajnika", 2, 2, 3, 0, (float)0.5, 10);
+		Sensor oilPressure = new SensorFloat(client, oilPresNode, "Ciśnienie oleju", 5, 1000, 1050, 0, 100, 1);
+		Sensor spiceMass = new SensorFloat(client, spiceNode, "Masa przypraw", 1, 5, 10, 20, 30, 10);
+		Sensor vibration = new SensorFloat(client, vibrationNode, "Wibracje", 5, 0, 5, 10, 15, 10);
 		
 		Sensor[] sensors = {potatoMass,
 							oilTemperature,
