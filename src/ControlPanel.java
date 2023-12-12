@@ -57,8 +57,9 @@ public class ControlPanel extends JFrame implements ActionListener{
 		this.valueLabels = new JLabel[this.sensorsNumber];
 		for (int i = 0; i < this.sensorsNumber; i++)
 		{
+			String value = String.valueOf(this.sensors[i].getValue());
 			this.valueLabels[i] = new JLabel();
-			this.valueLabels[i].setText(Float.toString(this.sensors[i].getValue())); //set text of label
+			this.valueLabels[i].setText(value); //set text of label
 			this.valueLabels[i].setHorizontalAlignment(JLabel.CENTER);
 			this.valueLabels[i].setForeground(Color.black); //set font color of text
 			this.valueLabels[i].setFont(new Font("Arial",Font.PLAIN,16)); //set font of text
@@ -100,7 +101,8 @@ public class ControlPanel extends JFrame implements ActionListener{
 	{
 		for (int i = 0; i < this.sensorsNumber; i++)
 		{
-			this.valueLabels[i].setText(Float.toString(this.sensors[i].getValue())); //set text of label	
+			String value = String.valueOf(this.sensors[i].getValue());
+			this.valueLabels[i].setText(value); //set text of label	
 		}
 	}
 

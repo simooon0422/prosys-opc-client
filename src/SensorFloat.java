@@ -9,11 +9,15 @@ public class SensorFloat extends Sensor{
 	protected float value;
 	protected float lowerBound;
 	protected float upperBound;
+	protected float malLowerBound;
+	protected float malUpperBound;
 	
-	SensorFloat(UaClient client, NodeId node, String name, float lowerBound, float upperBound, int frequency) {
-		super(client, node, name, frequency);
-		this.lowerBound = lowerBound;
-		this.upperBound = upperBound;	
+	SensorFloat(UaClient client, NodeId node, String name, float freq, float lB, float uB, float mlB, float muB ) {
+		super(client, node, name, freq);
+		this.lowerBound = lB;
+		this.upperBound = uB;
+		this.malLowerBound = mlB;
+		this.malUpperBound = muB;	
 	}
 	
 	@Override
@@ -23,7 +27,7 @@ public class SensorFloat extends Sensor{
 		{
 			this.value = rand.nextFloat(this.lowerBound, this.upperBound);
 		} 
-		else this.value = rand.nextFloat(this.lowerBound-50, this.upperBound+50);
+		else this.value = rand.nextFloat(this.malLowerBound, this.malUpperBound);
 	}
 	
 	@Override
@@ -37,7 +41,7 @@ public class SensorFloat extends Sensor{
 	}
 	
 	@Override
-	public float getValue() 
+	public Object getValue() 
 	{
 		return this.value;
 	}

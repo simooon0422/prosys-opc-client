@@ -2,27 +2,29 @@ import java.util.Random;
 import com.prosysopc.ua.client.UaClient;
 import com.prosysopc.ua.stack.builtintypes.NodeId;
 
-public class Sensor extends Thread{
+public abstract class Sensor extends Thread{
 	protected String name;
 	protected boolean malfunction = false;
-	protected int frequency;
+	protected float frequency;
 	protected UaClient client;
 	protected NodeId sensorNode;
 	
 	Random rand = new Random();
 	
-	Sensor(UaClient client, NodeId node, String name, int frequency)
+	Sensor(UaClient client, NodeId node, String name, float freq)
 	{
 
 		this.name = name;
 		this.client = client; 
 		this.sensorNode = node;
-		this.frequency = frequency;
+		this.frequency = freq;
 	};
 	
-	protected void generateValue() {}
+	protected abstract void generateValue();
 	
-	protected void sendValue() {}
+	protected abstract void sendValue();
+	
+	public abstract Object getValue();
 	
 	public void setMalfunction()
 	{
@@ -33,9 +35,7 @@ public class Sensor extends Thread{
 	{
 		return this.malfunction;
 	}
-	
-	public float getValue() {return 0;}
-	
+		
 	public String getSensorName()
 	{
 		return this.name;
@@ -48,7 +48,7 @@ public class Sensor extends Thread{
 			this.generateValue();
 			this.sendValue();
 			try {
-				Thread.sleep(1000/this.frequency);
+				Thread.sleep((int)(1000/this.frequency));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
