@@ -45,7 +45,7 @@ public class ControlPanel extends JFrame implements ActionListener{
 			this.nameLabels[i].setText(this.sensors[i].getSensorName()); //set text of label
 			this.nameLabels[i].setHorizontalAlignment(JLabel.CENTER);
 			this.nameLabels[i].setForeground(Color.black); //set font color of text
-			this.nameLabels[i].setFont(new Font("MV Boli",Font.PLAIN,16)); //set font of text
+			this.nameLabels[i].setFont(new Font("Arial",Font.PLAIN,16)); //set font of text
 			this.nameLabels[i].setBackground(Color.cyan); //set background color
 			this.nameLabels[i].setOpaque(true); //display background color
 			this.nameLabels[i].setBounds(50+(150*i), 50, 120, 30); //set x,y position within frame as well as dimensions

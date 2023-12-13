@@ -8,10 +8,12 @@ import com.prosysopc.ua.stack.builtintypes.UnsignedInteger;
 public class SensorBool extends Sensor{
 	protected boolean value;
 	protected boolean initState;
+	protected float threshold;
 	
-	SensorBool(UaClient client, NodeId node, String name, float freq, boolean initState) {
+	SensorBool(UaClient client, NodeId node, String name, float freq, boolean initState, float thresh) {
 		super(client, node, name, freq);
 		this.initState = initState;
+		this.threshold = thresh;
 	}
 
 	@Override
@@ -19,8 +21,8 @@ public class SensorBool extends Sensor{
 	{
 		if (this.malfunction == false)
 		{
-			float thresh = rand.nextFloat(0, 1);
-			if (thresh >= 0.8)
+			float val = rand.nextFloat(0, 1);
+			if (val >= this.threshold)
 			{
 				this.value = !this.initState;
 			}
