@@ -1,6 +1,4 @@
 import com.prosysopc.ua.ServiceException;
-import com.prosysopc.ua.StatusException;
-import com.prosysopc.ua.client.ServerConnectionException;
 import com.prosysopc.ua.client.UaClient;
 import com.prosysopc.ua.stack.builtintypes.NodeId;
 import com.prosysopc.ua.stack.transport.security.SecurityMode;
@@ -13,7 +11,7 @@ public class MyClient {
 		
 		NodeId massNode = new NodeId(3, 1008);
 		NodeId presenceNode = new NodeId(3, 1009);
-		NodeId metalicNode = new NodeId(3, 1010);
+		NodeId metallicNode = new NodeId(3, 1010);
 		NodeId oilTempNode = new NodeId(3, 1011);
 		NodeId humidityNode = new NodeId(3, 1012);
 		NodeId rollerNode = new NodeId(3, 1013);
@@ -27,13 +25,16 @@ public class MyClient {
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
 		
-		Sensor potatoMass = new SensorFloat(client, massNode, "Masa ziemniaków", 1, 20, 30, 0, 5, 5);
+		Sensor potatoMass = new SensorFloat(client, massNode, "Masa ziemniakow", 1, 20, 30, 0, 5, 5);
 		Sensor oilTemperature = new SensorFloat(client, oilTempNode, "Temperatura oleju", 1, 200, 210, 0, 5, 1);
-		Sensor humidity = new SensorFloat(client, humidityNode, "Wilgotność", 1, 30, 40, 90, 100, 1);
-		Sensor rollerSpeed = new SensorFloat(client, rollerNode, "Prędkość podajnika", 2, 2, 3, 0, (float)0.5, 10);
-		Sensor oilPressure = new SensorFloat(client, oilPresNode, "Ciśnienie oleju", 5, 1000, 1050, 0, 100, 1);
+		Sensor humidity = new SensorFloat(client, humidityNode, "Wilgotnosc", 1, 30, 40, 90, 100, 1);
+		Sensor rollerSpeed = new SensorFloat(client, rollerNode, "Predkosc podajnika", 2, 2, 3, 0, (float)0.5, 10);
+		Sensor oilPressure = new SensorFloat(client, oilPresNode, "Cisnienie oleju", 5, 1000, 1050, 0, 100, 1);
 		Sensor spiceMass = new SensorFloat(client, spiceNode, "Masa przypraw", 1, 5, 10, 20, 30, 10);
 		Sensor vibration = new SensorFloat(client, vibrationNode, "Wibracje", 5, 0, 5, 10, 15, 10);
+		
+		Sensor presence = new SensorBool(client, presenceNode, "Obecnosc", 1, true);
+		Sensor metallic = new SensorBool(client, metallicNode, "Elementy metaliczne", 1, false);
 		
 		Sensor[] sensors = {potatoMass,
 							oilTemperature,
@@ -41,7 +42,9 @@ public class MyClient {
 							rollerSpeed, 
 							oilPressure, 
 							spiceMass, 
-							vibration};
+							vibration,
+							presence,
+							metallic};
 		
 		ControlPanel panel = new ControlPanel(sensors);
 		
