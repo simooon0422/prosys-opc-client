@@ -25,6 +25,12 @@ public class MyClient {
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
 		
+		String[] stateGood = {"Pracuje"};
+		String[] stateNotGood = {"Awaria"};
+		
+		String[] qualityGood = {"OK"};
+		String[] qulityNotGood = {"NOK"};
+		
 		Sensor potatoMass = new SensorFloat(client, massNode, "Masa ziemniakow", 1, 20, 30, 0, 5, 5);
 		Sensor oilTemperature = new SensorFloat(client, oilTempNode, "Temperatura oleju", 1, 200, 210, 0, 5, 1);
 		Sensor humidity = new SensorFloat(client, humidityNode, "Wilgotnosc", 1, 30, 40, 90, 100, 1);
@@ -36,12 +42,17 @@ public class MyClient {
 		Sensor presence = new SensorBool(client, presenceNode, "Obecnosc", 1, true);
 		Sensor metallic = new SensorBool(client, metallicNode, "Elementy metaliczne", 1, false);
 		
+		Sensor state = new SensorString(client, stateNode, "Stan maszyny", 1, stateGood, stateNotGood);
+		Sensor quality = new SensorString(client, qualityNode, "Jakosc", 1, qualityGood, qulityNotGood);
+		
 		Sensor[] sensors = {potatoMass,
 							oilTemperature,
 							humidity, 
 							rollerSpeed, 
 							oilPressure, 
-							spiceMass, 
+							spiceMass,
+							state,
+							quality,
 							vibration,
 							presence,
 							metallic};

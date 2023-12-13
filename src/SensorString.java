@@ -5,35 +5,35 @@ import com.prosysopc.ua.client.UaClient;
 import com.prosysopc.ua.stack.builtintypes.NodeId;
 import com.prosysopc.ua.stack.builtintypes.UnsignedInteger;
 
-public class SensorBool extends Sensor{
-	protected boolean value;
-	protected boolean initState;
-	
-	SensorBool(UaClient client, NodeId node, String name, float freq, boolean initState) {
+public class SensorString extends Sensor{
+	protected String value;
+	protected String[] valueArray;
+	protected String[] malValueArray;
+
+	SensorString(UaClient client, NodeId node, String name, float freq, String[] arr, String[] malArr) {
 		super(client, node, name, freq);
-		this.initState = initState;
+		this.valueArray = arr;
+		this.malValueArray = malArr;
 	}
 
 	@Override
 	protected void generateValue() 
 	{
+		
 		if (this.malfunction == false)
 		{
-			float thresh = rand.nextFloat(0, 1);
-			if (thresh >= 0.8)
-			{
-				this.value = !this.initState;
-			}
-			else
-			{
-				this.value = this.initState;
-			}
+			int index = rand.nextInt(0, this.valueArray.length);
+			this.value = this.valueArray[index];
 		}
-		else this.value = !this.initState;;
+		else 
+		{
+			int index = rand.nextInt(0, this.malValueArray.length);
+			this.value = this.malValueArray[index];
+		}
 	}
 
 	@Override
-	protected void sendValue()
+	protected void sendValue() 
 	{
 		if(client.getEndpoint() != null)
 		{
@@ -43,6 +43,7 @@ public class SensorBool extends Sensor{
 				e.printStackTrace();
 			}
 		}	
+		
 	}
 
 	@Override
