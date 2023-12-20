@@ -3,13 +3,32 @@ import com.prosysopc.ua.client.UaClient;
 import com.prosysopc.ua.stack.builtintypes.NodeId;
 import com.prosysopc.ua.stack.transport.security.SecurityMode;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+
 public class MyClient {
-	public static void main(String[] args) throws InterruptedException{		
+	public static void main(String[] args) throws InterruptedException, IOException, ParseException{		
 		
-		String address = "opc.tcp://LAPTOP-7499MVRF:53530/OPCUA/SimulationServer";
+		JSONParser parser = new JSONParser();
+		Reader reader = new FileReader("cfg.json");
+
+		Object jsonObj = parser.parse(reader);
+
+		JSONObject jsonObject = (JSONObject) jsonObj;
+
+		String address = (String) jsonObject.get("address");
+		int id = (int) (long) jsonObject.get("index");
+
+		reader.close();
+		
 		UaClient client = new UaClient();
 		
-		NodeId massNode = new NodeId(3, 1008);
+		NodeId massNode = new NodeId(id, 1008);
 		NodeId presenceNode = new NodeId(3, 1009);
 		NodeId metallicNode = new NodeId(3, 1010);
 		NodeId oilTempNode = new NodeId(3, 1011);
