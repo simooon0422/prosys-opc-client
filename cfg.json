@@ -1,4 +1,16 @@
 {
 	"address":"opc.tcp://LAPTOP-7499MVRF:53530/OPCUA/SimulationServer",
 	"index":3,
+	"massNs":1009,
+	"presenceNs":1010,
+	"metallicNs":1011,
+	"oilTempNs":1012,
+	"humidityNs":1013,
+	"rollerNs":1014,
+	"oilPresNs":1016,
+	"spiceNs":1015,
+	"stateNs":1017,
+	"qualityNs":1018,
+	"vibrationNs":1019,
+	"energyNs":1020
 }

@@ -23,23 +23,23 @@ public class MyClient {
 
 		String address = (String) jsonObject.get("address");
 		int id = (int) (long) jsonObject.get("index");
-
-		reader.close();
 		
 		UaClient client = new UaClient();
 		
-		NodeId massNode = new NodeId(id, 1008);
-		NodeId presenceNode = new NodeId(3, 1009);
-		NodeId metallicNode = new NodeId(3, 1010);
-		NodeId oilTempNode = new NodeId(3, 1011);
-		NodeId humidityNode = new NodeId(3, 1012);
-		NodeId rollerNode = new NodeId(3, 1013);
-		NodeId oilPresNode = new NodeId(3, 1014);
-		NodeId spiceNode = new NodeId(3, 1015);
-		NodeId stateNode = new NodeId(3, 1016);
-		NodeId qualityNode = new NodeId(3, 1017);
-		NodeId vibrationNode = new NodeId(3, 1018);
-		NodeId energyNode = new NodeId(3, 1019);
+		NodeId massNode = new NodeId(id, (int) (long) jsonObject.get("massNs"));
+		NodeId presenceNode = new NodeId(id, (int) (long) jsonObject.get("presenceNs"));
+		NodeId metallicNode = new NodeId(id, (int) (long) jsonObject.get("metallicNs"));
+		NodeId oilTempNode = new NodeId(id, (int) (long) jsonObject.get("oilTempNs"));
+		NodeId humidityNode = new NodeId(id, (int) (long) jsonObject.get("humidityNs"));
+		NodeId rollerNode = new NodeId(id, (int) (long) jsonObject.get("rollerNs"));
+		NodeId oilPresNode = new NodeId(id, (int) (long) jsonObject.get("oilPresNs"));
+		NodeId spiceNode = new NodeId(id, (int) (long) jsonObject.get("spiceNs"));
+		NodeId stateNode = new NodeId(id, (int) (long) jsonObject.get("stateNs"));
+		NodeId qualityNode = new NodeId(id, (int) (long) jsonObject.get("qualityNs"));
+		NodeId vibrationNode = new NodeId(id, (int) (long) jsonObject.get("vibrationNs"));
+		NodeId energyNode = new NodeId(id, (int) (long) jsonObject.get("energyNs"));
+		
+		reader.close();
 		
 		client.setAddress(address);
 		client.setSecurityMode(SecurityMode.NONE);
