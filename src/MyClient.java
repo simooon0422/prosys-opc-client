@@ -17,9 +17,7 @@ public class MyClient {
 		JSONParser parser = new JSONParser();
 		Reader reader = new FileReader("cfg.json");
 
-		Object jsonObj = parser.parse(reader);
-
-		JSONObject jsonObject = (JSONObject) jsonObj;
+		JSONObject jsonObject = (JSONObject) parser.parse(reader);
 
 		String address = (String) jsonObject.get("address");
 		int id = (int) (long) jsonObject.get("index");
