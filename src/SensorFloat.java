@@ -49,8 +49,14 @@ public class SensorFloat extends Sensor{
 			{
 				this.value = this.upperBound;
 			}
+			
+			this.lastValue = this.value;
 		} 
-		else this.value = rand.nextFloat(this.malLowerBound, this.malUpperBound);
+		else 
+			{
+				this.value = rand.nextFloat(this.malLowerBound, this.malUpperBound);
+				this.lastValue = (this.lowerBound+this.upperBound)/2;
+			}
 	}
 	
 	@Override

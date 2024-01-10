@@ -32,7 +32,7 @@ public class ControlPanel extends JFrame implements ActionListener{
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
-		this.setSize(200*this.sensorsNumber, 300);
+		this.setSize(160*this.sensorsNumber, 300);
 		this.setVisible(true);
 	}
 	
